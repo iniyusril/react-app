@@ -2,21 +2,43 @@ import React, {Component} from 'react'
 
 class Counter extends Component {
     state = {
-        count: 12,
-        imgeUrl: 'https://picsum.photos/200'
+        count: this.props.value,
+        imgeUrl: 'https://picsum.photos/200',
+        tags: ['tag1','tag2','tag3']
     };
     styles = {
-        fontSize: 30
+        fontSize: 30 
     }
 
+    // constructor(){
+    //     super();
+    //     this.handleIncrement = this.handleIncrement.bind(this) 
+    //     console.log('Increment Clicked!',this)
+    // }
+    handleIncrement = () =>{
+ 
+        this.setState({
+            count : this.state.count+1
+        })
+        console.log('count', this.state.count)
+    }
     render(){
+        console.log('props',this.props)
         return (
             <React.Fragment>
+                {this.props.children}
                 <span style={this.styles} className={this.GetClass()}> { this.Change() } </span>
-                <button className="btn btn-primary" onClick={this.AddCount()}>Increment</button>
+                <button className="btn btn-primary" onClick={this.handleIncrement}>Increment</button>
+                {this.RenderTags()}
             </React.Fragment>
         
         )
+    }
+    RenderTags(){
+        if(this.state.tags.length === 0){
+            return '<p>they are no tags</p>'
+        }
+        return <ul>{this.state.tags.map(tag => <li key={tag}>{tag}</li>)} </ul>
     }
     GetClass(){
         let classes = "badge m-2 badge-";
@@ -24,10 +46,8 @@ class Counter extends Component {
         return classes;
     }
     Change(){
-        return this.state.count == 0 ? 'Zero' : this.state.count
+        return this.state.count === 0 ? 'Zero' : this.state.count
     }
-    AddCount(){
-         this.state.count += 1 ;
-    }
+
 }
 export default Counter;
