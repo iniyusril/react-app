@@ -6,6 +6,13 @@ class Counter extends Component {
         imgeUrl: 'https://picsum.photos/200',
         tags: ['tag1','tag2','tag3']
     };
+    componentDidUpdate(prevProps, prevState){
+        console.log('prevState',prevState)
+        console.log('prevProps',prevProps)
+      }
+    componentWillUnmount(){
+        console.log('Counter Unmount')
+    }
     styles = {
         fontSize: 30 
     }
